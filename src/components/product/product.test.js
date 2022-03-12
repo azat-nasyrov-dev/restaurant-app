@@ -25,7 +25,7 @@ describe('Product', () => {
     expect(wrapper.find('[data-id="product-amount"]').text()).toBe('1');
   });
 
-  it('should fetch data', () => {
+  it('should fetch data on mount', () => {
     const fn = jest.fn();
     mount(<Product product={product} fetchData={fn} />);
     expect(fn).toBeCalledWith(product.id);
