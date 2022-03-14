@@ -1,13 +1,14 @@
 import { DECREMENT, INCREMENT } from '../constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (amount = 0, action) => {
-  switch (action.type) {
+export default (state = {}, action) => {
+  const { type, id } = action;
+  switch (type) {
     case INCREMENT:
-      return amount + 1;
+      return { ...state, [id]: (state[id] || 0) + 1 };
     case DECREMENT:
-      return amount - 1;
+      return { ...state, [id]: (state[id] || 0) - 1 };
     default:
-      return amount;
+      return state;
   }
 };
