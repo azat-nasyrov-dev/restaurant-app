@@ -1,4 +1,9 @@
-import { normalizedProducts as defaultProducts } from '../../fixtures';
+import { normalizedProducts } from '../../fixtures';
+
+const defaultProducts = normalizedProducts.reduce(
+  (acc, product) => ({ ...acc, [product.id]: product }),
+  {}
+);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (products = defaultProducts, action) => {
