@@ -10,7 +10,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(bodyParser.json());
-app.use('./api', api);
+app.use('/api', api);
 
 app.listen(port, 'localhost', function (err) {
   if (err) {

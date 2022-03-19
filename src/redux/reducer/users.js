@@ -3,7 +3,6 @@ import { ADD_REVIEW } from '../constants';
 import { normalizedUsers } from '../../fixtures';
 import { arrToMap } from '../utils';
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default produce((draft = arrToMap(normalizedUsers), action) => {
   const { type, review, userId } = action;
 

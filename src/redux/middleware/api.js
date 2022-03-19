@@ -1,11 +1,17 @@
+import { FAILURE, REQUEST, SUCCESS } from '../constants';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default store => next => async action => {
   if (!action.CallAPI) return next(action);
-  {
-    const { CallAPI, ...rest } = action;
 
+  const { CallAPI, type, ...rest } = action;
+
+  next({ ...rest, type: type + REQUEST });
+
+  try {
     const data = await fetch(CallAPI).then(res => res.json());
-
-    next({ ...rest, data });
+    next({ ...rest, type: type + SUCCESS, data });
+  } catch (error) {
+    next({ ...rest, type: type + FAILURE, error });
   }
 };

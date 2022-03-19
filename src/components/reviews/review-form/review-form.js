@@ -21,9 +21,9 @@ const ReviewForm = ({ onSubmit }) => {
 
   return (
     <div className={styles.reviewForm}>
-      <h4 className={styles.addReviewTitle}>Leave yuor review</h4>
+      <h4 className={styles.addReviewTitle}>Leave your review</h4>
       <form onSubmit={handleSubmit}>
-        <div className={styles.reviewFormIten}>
+        <div className={styles.reviewFormItem}>
           <input
             placeholder="Your name"
             className={styles.message}

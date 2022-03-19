@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect';
 
-const restaurantsSelector = state => state.restaurants;
+const restaurantsSelector = state => state.restaurants.entities;
 const orderSelector = state => state.order;
 const productsSelector = state => state.products;
 const reviewsSelector = state => state.reviews;
 const usersSelector = state => state.users;
+
+export const restaurantsLoadingSelector = state => state.restaurants.loading;
+export const restaurantsLoadedSelector = state => state.restaurants.loaded;
 
 export const restaurantsListSelector = createSelector(
   restaurantsSelector,
@@ -12,10 +15,10 @@ export const restaurantsListSelector = createSelector(
 );
 
 export const restaurantSelector = (state, { id }) =>
-  restaurantsSelector(state[id]);
-export const productSelector = (state, { id }) => productsSelector(state[id]);
-export const reviewSelector = (state, { id }) => reviewsSelector(state[id]);
-export const amountSelector = (state, { id }) => orderSelector(state[id] || 0);
+  restaurantsSelector(state)[id];
+export const productSelector = (state, { id }) => productsSelector(state)[id];
+export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
+export const amountSelector = (state, { id }) => orderSelector(state)[id] || 0;
 
 export const orderProductsSelector = createSelector(
   productsSelector,
@@ -37,7 +40,7 @@ export const totalSelector = createSelector(
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
 
-export const reviewWithUserSelector = createSelector(
+export const reviewWitUserSelector = createSelector(
   reviewSelector,
   usersSelector,
   (review, users) => ({

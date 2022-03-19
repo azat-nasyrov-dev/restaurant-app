@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
-import BasketItem from './basket-item/basket-item';
+import BasketItem from './basket-item';
 import Button from '../button';
 import { orderProductsSelector, totalSelector } from '../../redux/selectors';
 
