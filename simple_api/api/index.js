@@ -18,7 +18,7 @@ router.get('/products', (req, res, next) => {
   reply(res, result);
 });
 
-router.get('./reviews', (req, res, next) => {
+router.get('/reviews', (req, res, next) => {
   const { id } = req.query;
   let result = reviews;
   if (id) {
