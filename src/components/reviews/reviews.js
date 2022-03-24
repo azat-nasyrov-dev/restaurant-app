@@ -4,13 +4,27 @@ import PropTypes from 'prop-types';
 import Review from './review';
 import ReviewForm from './review-form';
 import styles from './reviews.module.css';
+import { loadReviews, loadUsers } from '../../redux/actions';
+import {
+  reviewsLoadedSelector,
+  usersLoadedSelector,
+} from '../../redux/selectors';
+import Loader from '../loader';
 
-import { loadReviews } from '../../redux/actions';
-
-const Reviews = ({ reviews, restaurantId, loadReviews }) => {
+const Reviews = ({
+  reviews,
+  restaurantId,
+  loadReviews,
+  loadUsers,
+  usersLoaded,
+  reviewsLoaded,
+}) => {
   useEffect(() => {
+    loadUsers();
     loadReviews(restaurantId);
-  }, [loadReviews, restaurantId]);
+  }, [loadUsers, loadReviews, restaurantId]);
+
+  if (!usersLoaded || !reviewsLoaded) return <Loader />;
 
   return (
     <div className={styles.reviews}>
@@ -27,4 +41,11 @@ Reviews.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-export default connect(null, { loadReviews })(Reviews);
+const mapStateToProps = (state, props) => ({
+  reviewsLoaded: reviewsLoadedSelector(state, props),
+  usersLoaded: usersLoadedSelector(state, props),
+});
+
+const mapDispatchToProps = { loadReviews, loadUsers };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

@@ -21,14 +21,14 @@ const Restaurant = ({ restaurant, averageRating }) => {
   ];
 
   const content = {
-    menu: <Menu menu={menu} key={id} />,
+    menu: <Menu menu={menu} key={id} restaurantId={id} />,
     reviews: <Reviews reviews={reviews} restaurantId={id} />,
   }[activeTab];
 
   return (
     <div>
       <Banner heading={name}>
-        <Rate value={averageRating} />
+        {!!averageRating && <Rate value={averageRating} />}
       </Banner>
       <Tabs tabs={tabs} activeId={activeTab} onChange={setActiveTab} />
       {content}

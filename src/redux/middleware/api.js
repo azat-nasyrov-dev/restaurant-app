@@ -1,4 +1,4 @@
-import { FAILURE, REQUEST, SUCCESS } from '../constants';
+import { REQUEST, SUCCESS, FAILURE } from '../constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default store => next => async action => {
