@@ -43,7 +43,11 @@ const Restaurants = ({
           </NavLink>
         ))}
       </div>
-      <Restaurant id={restId} />
+      {restId ? (
+        <Restaurant id={restId} />
+      ) : (
+        <p style={{ textAlign: 'center' }}>Select restaurant</p>
+      )}
     </div>
   );
 };
