@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Route, Switch, useRouteMatch } from 'react-router';
 import Tabs from '../tabs';
 import Restaurant from '../restaurant';
 import Loader from '../loader';
@@ -10,25 +11,21 @@ import {
   restaurantsLoadingSelector,
 } from '../../redux/selectors';
 import { loadRestaurants } from '../../redux/actions';
-import { Route, Switch } from 'react-router';
 
-const Restaurants = ({
-  restaurants,
-  loading,
-  loaded,
-  loadRestaurants,
-  match,
-}) => {
+const Restaurants = ({ restaurants, loading, loaded, loadRestaurants }) => {
   useEffect(() => {
     if (!loading && !loaded) loadRestaurants();
   }, [loadRestaurants, loading, loaded]);
+
+  const match = useRouteMatch('/restaurants/:restId/:tabId');
+  const tabId = match?.params.tabId || 'menu';
 
   if (loading) return <Loader />;
   if (!loaded) return 'No data :(';
 
   const tabs = restaurants.map(({ id, name }) => ({
     title: name,
-    to: `/restaurants/${id}/menu`,
+    to: `/restaurants/${id}/${tabId}`,
   }));
 
   return (
