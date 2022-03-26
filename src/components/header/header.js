@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { userContext } from '../../contexts/user-context';
 
 import { ReactComponent as Logo } from '../../icons/logo.svg';
 import styles from './header.module.css';
 
-const Header = () => (
-  <header className={styles.header}>
-    <Link to="/restaurants">
-      <Logo />
-    </Link>
-  </header>
-);
+const Header = () => {
+  const { name, setName } = useContext(userContext);
 
+  return (
+    <header className={styles.header} onClick={() => setName('Alex')}>
+      <Link to="/restaurants">
+        <Logo />
+      </Link>
+      <h2>{name}</h2>
+    </header>
+  );
+};
 export default Header;
