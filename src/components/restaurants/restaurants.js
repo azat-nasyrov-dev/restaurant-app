@@ -12,7 +12,13 @@ import {
 import { loadRestaurants } from '../../redux/actions';
 import { Route, Switch } from 'react-router';
 
-const Restaurants = ({ restaurants, loading, loaded, loadRestaurants }) => {
+const Restaurants = ({
+  restaurants,
+  loading,
+  loaded,
+  loadRestaurants,
+  match,
+}) => {
   useEffect(() => {
     if (!loading && !loaded) loadRestaurants();
   }, [loadRestaurants, loading, loaded]);
@@ -29,7 +35,7 @@ const Restaurants = ({ restaurants, loading, loaded, loadRestaurants }) => {
     <div>
       <Tabs tabs={tabs} />
       <Switch>
-        <Route path="/restaurants/:restId/:tabId">
+        <Route path="/restaurants/:restId">
           {({ match }) => <Restaurant id={match.params.restId} />}
         </Route>
         <Route>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -12,7 +12,7 @@ import {
   restaurantSelector,
 } from '../../redux/selectors';
 
-const Restaurant = ({ restaurant, averageRating }) => {
+const Restaurant = ({ restaurant, averageRating, match }) => {
   const { id, name, menu, reviews } = restaurant;
 
   const tabs = [
@@ -26,12 +26,15 @@ const Restaurant = ({ restaurant, averageRating }) => {
         {!!averageRating && <Rate value={averageRating} />}
       </Banner>
       <Tabs tabs={tabs} />
-      <Route path="/restaurants/:restId/menu">
-        <Menu menu={menu} restaurantId={id} />
-      </Route>
-      <Route path="/restaurants/:restId/reviews">
-        <Reviews reviews={reviews} restaurantId={id} />
-      </Route>
+      <Switch>
+        <Route path="/restaurants/:restId/menu">
+          <Menu menu={menu} restaurantId={id} />
+        </Route>
+        <Route path="/restaurants/:restId/reviews">
+          <Reviews reviews={reviews} restaurantId={id} />
+        </Route>
+        <Redirect to="/restaurants/:restId/menu" />
+      </Switch>
     </div>
   );
 };
