@@ -17,6 +17,7 @@ import {
 import { makeOrder } from '../../redux/actions';
 
 import { UserConsumer } from '../../contexts/user-context';
+import { useMoney } from '../../hooks/use-money';
 
 function Basket({
   title = 'Basket',
@@ -25,6 +26,8 @@ function Basket({
   makeOrder,
   loading,
 }) {
+  const m = useMoney();
+
   if (!total) {
     return (
       <div className={styles.basket}>
@@ -45,11 +48,10 @@ function Basket({
       </h4>
       <TransitionGroup>
         {orderProducts.map(({ product, amount, subtotal, restaurantId }) => (
-          <CSSTransition key={product.id} timeout={300} className="basket">
+          <CSSTransition key={product.id} timeout={300} classNames="basket">
             <BasketItem
               product={product}
               amount={amount}
-              key={product.id}
               subtotal={subtotal}
               restaurantId={restaurantId}
             />
@@ -62,7 +64,7 @@ function Basket({
           <p>Total</p>
         </div>
         <div className={itemStyles.info}>
-          <p>{`${total} $`}</p>
+          <p>{m(total)}</p>
         </div>
       </div>
       <Switch>

@@ -7,6 +7,7 @@ import { increment, decrement } from '../../redux/actions';
 
 import Button from '../button';
 import { amountSelector, productSelector } from '../../redux/selectors';
+import { Money } from '../../contexts/money';
 
 const Product = ({ product, amount, increment, decrement }) => {
   if (!product) return null;
@@ -17,7 +18,9 @@ const Product = ({ product, amount, increment, decrement }) => {
         <div>
           <h4 className={styles.title}>{product.name}</h4>
           <p className={styles.description}>{product.ingredients.join(', ')}</p>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            <Money value={product.price} />
+          </div>
         </div>
         <div>
           <div className={styles.counter}>
